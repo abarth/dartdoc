@@ -72,23 +72,6 @@ void initializeConfig(
       includeSource: includeSource);
 }
 
-Map<String, List<fileSystem.Folder>> _calculatePackageMap(
-    fileSystem.Folder dir) {
-  Map<String, List<fileSystem.Folder>> map = new Map();
-  var info = package_config.findPackagesFromFile(dir.toUri());
-
-  for (String name in info.packages) {
-    Uri uri = info.asMap()[name];
-    fileSystem.Resource resource =
-        PhysicalResourceProvider.INSTANCE.getResource(uri.toFilePath());
-    if (resource is fileSystem.Folder) {
-      map[name] = [resource];
-    }
-  }
-
-  return map;
-}
-
 /// Generates Dart documentation for all public Dart libraries in the given
 /// directory.
 class DartDoc {
@@ -175,12 +158,13 @@ class DartDoc {
         new DartSdkManager(sdkDir.path, false, (options) {
           DartSdk sdk = new FolderBasedDartSdk(
               PhysicalResourceProvider.INSTANCE,
-              PhysicalResourceProvider.INSTANCE.getFolder(sdkDir.path), true);
+              PhysicalResourceProvider.INSTANCE.getFolder(sdkDir.path),
+              true);
           sdk.context.analysisOptions = options;
           return sdk;
         }),
         null);
-    AnalysisOptions options = builder.getAnalysisOptions(null, rootDir.path);
+    AnalysisOptions options = builder.getAnalysisOptions(rootDir.path);
     SourceFactory sourceFactory =
         builder.createSourceFactory(rootDir.path, options);
     DartSdk sdk = sourceFactory.dartSdk;

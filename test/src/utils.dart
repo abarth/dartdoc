@@ -22,7 +22,8 @@ import 'package:path/path.dart' as p;
 AnalyzerHelper analyzerHelper;
 DartSdk sdkDir;
 Package testPackage;
-final Directory testPackageBadDir = new Directory('testing/test_package_bad').absolute;
+final Directory testPackageBadDir =
+    new Directory('testing/test_package_bad').absolute;
 
 final Directory testPackageDir = new Directory('testing/test_package').absolute;
 Package testPackageSmall;
@@ -79,8 +80,6 @@ class AnalyzerHelper {
     SourceFactory sourceFactory = new SourceFactory(resolvers);
     AnalysisEngine.instance.processRequiredPlugins();
     context = AnalysisEngine.instance.createAnalysisContext();
-    context.analysisOptions = new AnalysisOptionsImpl()
-      ..enableGenericMethods = true;
     context.sourceFactory = sourceFactory;
   }
 
