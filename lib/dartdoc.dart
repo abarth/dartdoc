@@ -175,7 +175,7 @@ class DartDoc {
         new DartSdkManager(sdkDir.path, false, (options) {
           DartSdk sdk = new FolderBasedDartSdk(
               PhysicalResourceProvider.INSTANCE,
-              PhysicalResourceProvider.INSTANCE.getFolder(sdkDir.path));
+              PhysicalResourceProvider.INSTANCE.getFolder(sdkDir.path), true);
           sdk.context.analysisOptions = options;
           return sdk;
         }),
